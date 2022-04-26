@@ -1,4 +1,3 @@
-
 # IJCAI2022-NMMO-PVE-STAGE1 BASELINES
 ## Install
 ```bash
@@ -91,7 +90,7 @@ which makes learning easy but has no direct relation with [evaluation metrics](h
 
 
 
-### **Hints**
+### **Hints for getting stronger agents...**
 - Learn attack strategy using RL.
 - Optimize feature design and network architecture.
 - Use team reward instead of individual reward.
