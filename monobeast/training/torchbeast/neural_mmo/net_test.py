@@ -50,7 +50,8 @@ class NMMONet(nn.Module):
         terrain = F.one_hot(terrain, num_classes=6).permute(0, 1, 4, 2, 3)
         camp = F.one_hot(camp, num_classes=4).permute(0, 1, 4, 2, 3)
 
-        # print(terrain.shape, camp.shape, entity.shape)
+        if training:
+            print("shape", terrain.shape, camp.shape, entity.shape)
         x = torch.cat([terrain, camp, entity], dim=2)
 
         T, B, C, H, W = x.shape
@@ -63,6 +64,8 @@ class NMMONet(nn.Module):
         logits = self.policy(x)
         baseline = self.baseline(x)
 
+        if training:
+            print("xva", x.shape, va.shape)
         va = input_dict.get("va", None)
         if va is not None:
             va = torch.flatten(va, 0, 1)

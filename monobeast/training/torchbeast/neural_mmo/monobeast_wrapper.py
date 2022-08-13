@@ -27,8 +27,9 @@ class MonobeastWrapper:
         self.gym_env = env
 
     def initial(self):
-        initial_frame = self.gym_env.reset()
-        output = self.format_output(initial_frame)
+        initial_frame= self.gym_env.reset()
+        #output = self.format_output(initial_frame)
+        output = self.format_output(initial_frame,done={agent_id: 0 for agent_id in self.gym_env.agents})
         self.episode_return = {agent_id: 0 for agent_id in self.gym_env.agents}
         self.episode_step = {agent_id: 0 for agent_id in self.gym_env.agents}
         return output
@@ -61,12 +62,15 @@ class MonobeastWrapper:
                       episode_step=None):
         assert isinstance(frame,
                           dict), f"only support frame in the format of dict"
-        if actions is None:
+        #if actions is None or actions == {}:
+        # if actions is None:
+        #     actions = {agent_id: 0 for agent_id in self.gym_env.agents}
+        if not actions:
             actions = {agent_id: 0 for agent_id in self.gym_env.agents}
         if reward is None:
             reward = {agent_id: 0 for agent_id in self.gym_env.agents}
         if done is None:
-            done = {agent_id: 1 for agent_id in self.gym_env.agents}
+            done = {agent_id: 0 for agent_id in self.gym_env.agents}
         if episode_return is None:
             episode_return = {agent_id: 0 for agent_id in self.gym_env.agents}
         if episode_step is None:
@@ -98,4 +102,5 @@ class MonobeastWrapper:
             o["episode_step"] = episode_step[agent_id]
             output[agent_id] = o
 
+        # output['1000'] = frame['1000']
         return output

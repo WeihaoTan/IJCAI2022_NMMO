@@ -41,19 +41,6 @@ from torchbeast.neural_mmo.train_wrapper import TrainWrapper
 from torchbeast.neural_mmo.team_based_env import TeamBasedEnv
 
 
-# import torch
-# from ijcai2022nmmo import CompetitionConfig, TeamBasedEnv
-# from torch import multiprocessing as mp
-# from torch import nn
-# from torch.nn import functional as F
-
-# from torchbeast.core import file_writer, prof, vtrace
-# from torchbeast.neural_mmo.monobeast_wrapper import \
-#     MonobeastWrapper as Environment
-# from torchbeast.neural_mmo.train_wrapper import TrainWrapper
-# from torchbeast.neural_mmo.net_test import NMMONet
-
-
 to_torch_dtype = {
     "uint8": torch.uint8,
     "int8": torch.int8,
@@ -122,9 +109,6 @@ parser.add_argument("--epsilon", default=0.01, type=float,
 parser.add_argument("--grad_norm_clipping", default=40.0, type=float,
                     help="Global gradient norm clip.")
 # yapf: enable
-
-parser.add_argument("--resume", default=False, type=bool)
-
 
 logging.basicConfig(
     format=("[%(levelname)s:%(process)d %(module)s:%(lineno)d %(asctime)s] "
@@ -577,7 +561,7 @@ def train(flags):  # pylint: disable=too-many-branches, too-many-statements
                 to_log.update({k: stats[k] for k in stat_keys})
                 plogger.log(to_log)
                 step += T * B
-        
+
         if i == 0:
             logging.info("Batch and learn: %s", timings.summary())
 
